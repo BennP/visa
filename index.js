@@ -12,3 +12,7 @@ button.addEventListener('click', () => {
   main.openShowUrl()
 }, false)
 document.body.appendChild(button)
+
+// function myFunction() {
+//    setInterval(function(){ alert("Hello"); }, 3000);
+// }

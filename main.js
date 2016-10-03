@@ -12,7 +12,7 @@ let urlId = 0;
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({width: 400, height: 200})
 
   // and load the index.html of the app.
   // mainWindow.loadURL(`http://www.google.com`)
@@ -58,7 +58,7 @@ app.on('activate', function () {
 exports.openShowUrl = () => {
   if ( urlWindow == null)
   {
-    urlWindow = new BrowserWindow({width:400, height:200})
+    urlWindow = new BrowserWindow({width:800, height:600})
   }
   if (urlId == 0 )
   {
@@ -66,6 +66,6 @@ exports.openShowUrl = () => {
     urlId = urlId + 1;
   }
   else {
-    urlWindow.loadURL('http://www.dn.se')
+    urlWindow.loadURL('http://www.smhi.se')
   }
 }
