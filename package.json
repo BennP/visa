@@ -1,13 +1,13 @@
 {
-  "name": "App1",
+  "name": "Slider",
   "version": "1.0.0",
   "description": "A application",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
-  "author": "BennP",
-  "license": "CC0-1.0",
+  "author": "Benn Pörscke <bennporscke@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "electron": "^1.3.4"
   }

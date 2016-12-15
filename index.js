@@ -1,18 +1,23 @@
 const remote = require('electron').remote
 const main = remote.require('./main.js')
 
-var textUrl = document.createElement('input')
-textUrl.name = 'Url'
-document.body.appendChild(textUrl)
+var secondTimeou = document.createElement('input')
+secondTimeou.name = 'Seconds to Loop'
+document.body.appendChild(secondTimeou)
 
 var button = document.createElement('button')
-button.textContent = 'Start Seq'
+button.textContent = 'Start'
 button.addEventListener('click', () => {
-  console.log('textUrl contains =' + textUrl);
-  main.openShowUrl()
+  console.log('Seconds  =' + secondTimeou.value);
+  main.openShowUrl(secondTimeou.value)
 }, false)
 document.body.appendChild(button)
 
-// function myFunction() {
-//    setInterval(function(){ alert("Hello"); }, 3000);
-// }
+
+var stepButton = document.createElement('button')
+stepButton.textContent = 'One Step'
+stepButton.addEventListener('click', () => {
+  main.stepOneUrl()
+}, false)
+document.body.appendChild(stepButton)
+
