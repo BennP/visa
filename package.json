@@ -9,6 +9,12 @@
   "author": "Benn Pörscke <bennporscke@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^1.3.4"
-  }
+    "electron": "^1.3.4",
+    "electron-builder": "^10.15.1"
+  },
+  "files": [
+    "urls.js",
+    "images/moon.jpg",
+    "images/mars.jpg"
+  ]
 }
