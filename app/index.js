@@ -28,3 +28,10 @@ loadUrlButton.addEventListener('click', () => {
   let urlArr = urls.getUrls();
 }, false)
 document.body.appendChild(loadUrlButton)
+
+let reloadUrlButton = document.createElement('button')
+reloadUrlButton.textContent = 'Re-Load URL'
+reloadUrlButton.addEventListener('click', () => {
+  main.reloadUrls();
+}, false)
+document.body.appendChild(reloadUrlButton)

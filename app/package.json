@@ -1,0 +1,11 @@
+{
+  "name": "Visa",
+  "version": "0.0.3",
+  "description": "App to show URLs in a loop",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Benn Pörscke <bennporscke@gmail.com>",
+  "license": "MIT"
+}

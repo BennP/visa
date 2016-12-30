@@ -1,3 +1,14 @@
+// ****************
+// Aplication Visa
+//
+// Todo:
+//      - Add so the configuration time for each page is in the setup-urls.conf file
+//      - The time from auxilary screen is a default time if no time is given on individual Url
+//      - Let the user give a directory where he whants the settings file to exists
+//      -- And name the settings file to
+// ****************
+
+
 const electron = require('electron')
 const app = electron.app
 const exec = require('child_process').exec;
@@ -5,6 +16,7 @@ const {
   BrowserWindow
 } = require('electron')
 const urls = require('./urls.js')
+const app_settings = require('./app-settings.js')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -14,16 +26,6 @@ let secondWindow
 let urlWindow = null;
 let urlId = 0;
 let showFirst = true;
-
-/*
-var urlArray = ['http://www.google.com',
-  'https://inbox.google.com/',
-  'https://photos.google.com/',
-  'file:///home/benn/Pictures/christmas2015fullmoon.jpg',
-  'http://dilbert.com/',
-  'http://www.smhi.se/vadret/vadret-i-sverige/land/fiveDaysForecast.do?geonameid=2674649&redirect=false',
-  'https://calendar.google.com/calendar/render?pli=1#main_7'
-]; */
 
 let urlArray = [];
 
@@ -37,7 +39,6 @@ function createWindow() {
   })
 
   // and load the index.html of the app.
-  // mainWindow.loadURL(`http://www.google.com`)
   mainWindow.loadURL(`file://${__dirname}/index.html`)
 
   // Open the DevTools.
@@ -74,13 +75,7 @@ function createFirstWindow() {
     }
   })
 
-  let startImage = "'" + 'file://' + app.getAppPath() + '/images/moon.jpg' + "'"
-  // let startImage = "'" + 'file://' + app.getAppPath() + '/images/moon.jpg' + "'"
-  console.log('Start image for page 1  ' + startImage);
-
-  firstWindow.loadURL(startImage);
-
-  console.log('Load URL done ');
+  firstWindow.loadURL(`file://${__dirname}/images/moon.jpg`);
 
   // Emitted when the window is closed.
   firstWindow.on('closed', function () {
@@ -105,11 +100,8 @@ function createSecondWindow() {
         partition: 'persist:slider'
       }
     })
-    //     type: desktop
 
-  let startImage = "'" + 'file://' + app.getAppPath() + '/images/mars.jpg' + "'"
-  console.log('Start image for page 2  ' + startImage);
-  secondWindow.loadURL(startImage.toString());
+  secondWindow.loadURL(`file://${__dirname}/images/mars.jpg`);
 
   // Emitted when the window is closed.
   secondWindow.on('closed', function () {
@@ -128,6 +120,7 @@ app.on('ready', function () {
   createWindow();
   createFirstWindow();
   createSecondWindow();
+  app_settings.addDefault();
 })
 
 // Quit when all windows are closed.
@@ -202,7 +195,17 @@ exports.openShowUrl = (secTimer) => {
   secondWindow.setFullScreen(true);
 }
 
+
+exports.reloadUrls = () => {
+
+  console.log('Reload Urls from settings file')
+  urlArray = urls.getUrls();
+}
+
 exports.stepOneUrl = () => {
 
+  if (urlArray.length < 1) {
+    urlArray = urls.getUrls();
+  }
   timerExpierd()
 }

@@ -1,20 +1,55 @@
 {
-  "name": "Slider",
-  "version": "1.0.0",
-  "description": "A application",
-  "main": "main.js",
+  "name": "Visa",
+  "version": "0.0.3",
   "scripts": {
-    "start": "electron ."
+    "start": "electron app/.",
+    "pack": "build --dir",
+    "dist": "build",
+    "dist-win-64": "build --win --x64",
+    "dist-win-32": "build --win --ia32"
   },
-  "author": "Benn Pörscke <bennporscke@gmail.com>",
-  "license": "MIT",
+  "postinstall": "install-app-deps",
   "devDependencies": {
     "electron": "^1.3.4",
-    "electron-builder": "^10.15.1"
+    "electron-builder": "next"
   },
-  "files": [
-    "urls.js",
-    "images/moon.jpg",
-    "images/mars.jpg"
-  ]
+  "build": {
+    "appId": "se.porscke.visa",
+    "category": "public.app-category.tool",
+    "files": [
+      "main.js",
+      "index.js",
+      "index.html",
+      "urls.js",
+      "app-settings.js",
+      "images/moon.jpg",
+      "images/mars.jpg"
+    ],
+    "extraFiles": [
+      "setup-urls.conf"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    }
+  },
+  "dependencies": {
+    "electron-settings": "^2.2.2"
+  }
 }
