@@ -1,6 +1,6 @@
 {
-  "name": "Visa",
-  "version": "0.0.4",
+  "name": "visa",
+  "version": "0.0.5",
   "description": "App to show URLs in a loop",
   "main": "main.js",
   "author": "Benn Pörscke <bennporscke@gmail.com>",
