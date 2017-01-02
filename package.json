@@ -22,6 +22,7 @@
     "appId": "se.porscke.visa",
     "category": "public.app-category.tool",
     "files": [
+      "node_modules",
       "main.js",
       "index.js",
       "index.html",
