@@ -3,7 +3,7 @@
   "version": "0.0.5",
   "description": "App to show URLs in a loop",
   "main": "main.js",
-  "author": "Benn PÃ¶rscke <bennporscke@gmail.com>",
+  "author": "Benn Pörscke <bennporscke@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "electron-settings": "^2.2.2"
