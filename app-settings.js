@@ -14,6 +14,7 @@ const SWITCH_TIME = 'switchTime';
  * Settinsg data
  * URL config file name and path
  * switch URL time in seconds
+ * first auto start time in seconds
  */
 
 exports.addDefault = function () {
@@ -36,8 +37,8 @@ exports.saveSetupPath = function (setupFilePath) {
 
 exports.getSetupPath = function () {
   // Get the Astro Path from persistant persistant
-  console.log(settings.getSync(URL_PATH));
-  return settings.getSync(URL_PATH);
+  console.log(settings.get(URL_PATH));
+  return settings.get(URL_PATH);
 }
 
 exports.saveSwitchTime = function (switchTime) {
@@ -52,5 +53,5 @@ exports.saveSwitchTime = function (switchTime) {
 exports.getSwitchTime = function () {
   // Get the Switch Time
 
-  return settings.getSync(SWITCH_TIME);
+  return settings.get(SWITCH_TIME);
 }

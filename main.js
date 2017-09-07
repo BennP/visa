@@ -17,6 +17,7 @@ const {
 } = require('electron')
 const urls = require('./urls.js')
 const app_settings = require('./app-settings.js')
+const dilbert = require('random-dilbert')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -26,6 +27,7 @@ let secondWindow
 let urlWindow = null;
 let urlId = 0;
 let showFirst = true;
+let usingStartTimer = true;
 
 let urlArray = [];
 
@@ -42,7 +44,7 @@ function createWindow() {
   mainWindow.loadURL(`file://${__dirname}/index.html`)
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
@@ -75,7 +77,7 @@ function createFirstWindow() {
     }
   })
 
-  firstWindow.loadURL(`file://${__dirname}/images/moon.jpg`);
+  firstWindow.loadURL(`file://${__dirname}/images/eyeofhorus.jpg`);
 
   // Emitted when the window is closed.
   firstWindow.on('closed', function () {
@@ -101,7 +103,7 @@ function createSecondWindow() {
       }
     })
 
-  secondWindow.loadURL(`file://${__dirname}/images/mars.jpg`);
+  secondWindow.loadURL(`file://${__dirname}/images/eyeofhorus.jpg`);
 
   // Emitted when the window is closed.
   secondWindow.on('closed', function () {
@@ -121,6 +123,9 @@ app.on('ready', function () {
   createFirstWindow();
   createSecondWindow();
   app_settings.addDefault();
+  // Set a first timer so we will start even if we dont
+  // set a interval in the setup screen
+  startTimer(20);
 })
 
 // Quit when all windows are closed.
@@ -145,32 +150,65 @@ app.on('activate', function () {
 
 function startTimer(timeToSleep) {
 
+  // Set a min time
+  if (timeToSleep < 3) {
+    timeToSleep = 3;
+  }
+  timeToSleep = timeToSleep * 1000;
+  console.log('Set interval to ' + timeToSleep.toString());
+
   setInterval(timerExpierd, timeToSleep);
 
 }
 
 function timerExpierd() {
-  console.log('Timer expierd');
-  console.log('current Index before = ' + currentUrlIndex.toString());
   if (currentUrlIndex > urlArray.length - 1) {
     currentUrlIndex = 0;
+    urlArray = urls.getUrls();
   }
 
-  console.log('current Index to show = ' + currentUrlIndex.toString());
+  if (usingStartTimer) {
+    startTimer(app_settings.getSwitchTime());
+    console.log('First start alter to switch interval = ' + app_settings.getSwitchTime().toString());
+    usingStartTimer = false;
+    firstWindow.setFullScreen(true);
+    secondWindow.setFullScreen(true);
+    }
+
 
   // Show the already loaded window and then update the next to be shown
   if (showFirst) {
-    console.log('Show first ');
     firstWindow.show();
-    // secondWindow.hide();
-    console.log('Load second with = ' + urlArray[currentUrlIndex]);
+    /* How to get a random dilbert
+    if (String(urlArray[currentUrlIndex]) === 'dilbert') {
+      console.log('This is a dilbert');
+      dilbert(function(err, data) {
+        data == {
+          url: 'http://assets.amuniversal.com/321a39e06d6401301d80001dd8b71c47',
+          date: '2001-10-25'
+        }
+      })
+      console.log('This is a dilbert url   = ' + data);
+      console.log('****');
+    }
+    */
     secondWindow.loadURL(urlArray[currentUrlIndex]);
     showFirst = false;
   } else {
-    console.log('Show second ');
     secondWindow.show();
-    // firstWindow.hide();
-    console.log('Load first with = ' + urlArray[currentUrlIndex]);
+    /* How to get a random dilbert
+    if (String(urlArray[currentUrlIndex]) === 'dilbert') {
+      console.log('This is a dilbert');
+      dilbert(function(err, data) {
+        data == {
+          url: 'http://assets.amuniversal.com/321a39e06d6401301d80001dd8b71c47',
+          date: '2001-10-25'
+        }
+      })
+      console.log('This is a dilbert url   = ' + data);
+      console.log('****');
+    }
+    */
     firstWindow.loadURL(urlArray[currentUrlIndex]);
     showFirst = true;
   }
@@ -181,16 +219,12 @@ function timerExpierd() {
 exports.openShowUrl = (secTimer) => {
 
   mainWindow.minimize()
-  if (secTimer < 3) {
-    secTimer = 3;
-  }
-  console.log('Before get urls')
   urlArray = urls.getUrls();
-  // console.log('global Urls = ' + urlArray[0])
 
-  console.log('Before start timer')
   timerExpierd();
-  startTimer(secTimer * 1000);
+  app_settings.saveSwitchTime(secTimer);
+  usingStartTimer = false;
+  startTimer(secTimer);
   firstWindow.setFullScreen(true);
   secondWindow.setFullScreen(true);
 }
