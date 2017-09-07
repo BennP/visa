@@ -22,5 +22,5 @@ Example:
 https://news.google.se/?edchanged=1&ned=sv_se&authuser=0
 https://inbox.google.com/
 https://photos.google.com/
-http://dilbert.com/
+
 

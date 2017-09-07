@@ -17,7 +17,7 @@ const {
 } = require('electron')
 const urls = require('./urls.js')
 const app_settings = require('./app-settings.js')
-const dilbert = require('random-dilbert')
+// const dilbert = require('random-dilbert')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
