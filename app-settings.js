@@ -28,11 +28,7 @@ exports.addDefault = function () {
 exports.saveSetupPath = function (setupFilePath) {
   // Saves the URL setup file path
 
-  settings.set(URL_PATH, setupFilePath).then(() => {
-    settings.get(URL_PATH).then(val => {
-      console.log('Save settings path = ' + val);
-    });
-  });
+  settings.set(URL_PATH, setupFilePath)
 }
 
 exports.getSetupPath = function () {
@@ -43,11 +39,7 @@ exports.getSetupPath = function () {
 
 exports.saveSwitchTime = function (switchTime) {
   // Saves the Switch time
-  settings.set(SWITCH_TIME, switchTime).then(() => {
-    settings.get(SWITCH_TIME).then(val => {
-      console.log('Save settings switch = ' + val);
-    });
-  });
+  settings.set(URL_PATH, switchTime)
 }
 
 exports.getSwitchTime = function () {
